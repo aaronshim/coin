@@ -11,6 +11,7 @@ defmodule CoinNetwork.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     escript: [main_module: CoinNetwork.CLI],
      deps: deps()]
   end
 
@@ -36,6 +37,6 @@ defmodule CoinNetwork.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [ { :uuid, "~> 1.1" } ]
   end
 end
