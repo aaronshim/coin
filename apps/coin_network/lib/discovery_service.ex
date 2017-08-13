@@ -1,9 +1,10 @@
 defmodule CoinNetwork.DiscoveryService do
-  use GenServer
-
   @moduledoc """
   Documentation for CoinNetwork.DiscoveryService
   """
+
+  use GenServer
+  alias CoinNetwork.Node
 
   @name DS
 
@@ -55,11 +56,11 @@ defmodule CoinNetwork.DiscoveryService do
         {:reply, {:ok, pid}, state}
     end
   end
-  
+
   def handle_call({:peers}, _from, %{peers: peers, nodes_to_notify: _nodes_to_notify} = state) do
     {:reply, peers, state}
   end
-  
+
   def handle_cast({:set_peer, pid}, %{peers: peers, nodes_to_notify: nodes_to_notify} = state) do
     if pid in state do
       {:noreply, state}
@@ -85,7 +86,7 @@ defmodule CoinNetwork.DiscoveryService do
         nil
 
       peer_pid ->
-        CoinNetwork.Node.set_peer(pid, peer_pid)
+        Node.set_peer(pid, peer_pid)
     end
   end
 

@@ -37,6 +37,6 @@ defmodule CoinNetwork.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [ { :uuid, "~> 1.1" } ]
+    [{ :uuid, "~> 1.1" }, {:base58check, git: "https://github.com/lukaszsamson/base58check.git"}]
   end
 end

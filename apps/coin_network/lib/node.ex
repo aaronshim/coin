@@ -1,5 +1,10 @@
 defmodule CoinNetwork.Node do
+  @moduledoc """
+  Documentation for CoinNetwork.CLI
+  """
+  
   use GenServer
+  alias CoinNetwork.DiscoveryService
 
   ## Client API
 
@@ -39,13 +44,13 @@ defmodule CoinNetwork.Node do
     IO.puts "Hello from a node running at #{Kernel.inspect(self())}"
     
     # Ask the discovery service some other peers to start connecting to
-    case CoinNetwork.DiscoveryService.get_peer() do
+    case DiscoveryService.get_peer() do
       {:ok, pid} ->
         # Ask the already-a-member peer node to add me as a known peer
         __MODULE__.set_peer(pid, self())
 
         # Make myself known to the discovery service (but only after I'm a valid member of the network)
-        CoinNetwork.DiscoveryService.set_peer(self())
+        DiscoveryService.set_peer(self())
 
         {:ok, %{messages: [], peers: [ pid ]}}
       {:error, _reason} ->
